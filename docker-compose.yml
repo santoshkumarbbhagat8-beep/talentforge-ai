@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    container_name: talentforge-db
+    environment:
+      POSTGRES_DB: talentforge
+      POSTGRES_USER: talentforge
+      POSTGRES_PASSWORD: talentforge
+    ports: ["5432:5432"]
+    volumes: ["talentforge-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U talentforge -d talentforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  talentforge-data:
